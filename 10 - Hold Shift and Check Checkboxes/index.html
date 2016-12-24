@@ -105,30 +105,59 @@
 
 <script>
 
-	var lastClicked = null;
+// My own Implementation
+	// var lastClicked = null;
 
-	let inputArray = Array.from(document.querySelectorAll("input"));
+	// let inputArray = Array.from(document.querySelectorAll("input"));
 
-	inputArray.forEach(item => item.addEventListener("click", handleClick));
+	// inputArray.forEach(item => item.addEventListener("click", handleClick));
 
-	function handleClick(event){
+	// function handleClick(event){
 		
-		if(event.shiftKey){
-			checkAll(lastClicked, event.target);
+	// 	if(event.shiftKey){
+	// 		checkAll(lastClicked, event.target);
+	// 	}
+
+	// 	lastClicked = event.target;
+	// }
+
+	// function checkAll(from, to){
+	// 	let fromIndex = inputArray.findIndex( item => item === from);
+	// 	let toIndex = inputArray.findIndex( item => item === to);
+
+	// 	// check is "fromIndex"" comes before "toIndex", if not, then swap them
+	// 	if(fromIndex > toIndex) [fromIndex, toIndex] = [toIndex, fromIndex];
+
+	// 	inputArray.slice(fromIndex, toIndex).forEach(item => item.checked = true);
+	// }
+
+
+// Wes Implementation, bug: if the user clicks with shift at the beginning, it will check all following inputs
+
+const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+let lastChecked;
+
+function handleCheck(event){
+	let inBetween = false;
+
+	if(event.shiftKey && this.checked){
+
+		checkboxes.forEach(checkbox => {
+
+		if(checkbox === this || checkbox === lastChecked) {
+			inBetween = !inBetween;
 		}
 
-		lastClicked = event.target;
-	}
+		if (inBetween) {
+			checkbox.checked = true;
+		}
+	});
+}
+	lastChecked = this;
+}
 
-	function checkAll(from, to){
-		let fromIndex = inputArray.findIndex( item => item === from);
-		let toIndex = inputArray.findIndex( item => item === to);
-
-		// check is "fromIndex"" comes before "toIndex", if not, then swap them
-		if(fromIndex > toIndex) [fromIndex, toIndex] = [toIndex, fromIndex];
-
-		inputArray.slice(fromIndex, toIndex).forEach(item => item.checked = true);
-	}
+checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
 
 
 </script>
