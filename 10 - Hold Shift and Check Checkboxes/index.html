@@ -104,6 +104,33 @@
   </div>
 
 <script>
+
+	var lastClicked = null;
+
+	let inputArray = Array.from(document.querySelectorAll("input"));
+
+	inputArray.forEach(item => item.addEventListener("click", handleClick));
+
+	function handleClick(event){
+		
+		if(event.shiftKey){
+			checkAll(lastClicked, event.target);
+		}
+
+		lastClicked = event.target;
+	}
+
+	function checkAll(from, to){
+		let fromIndex = inputArray.findIndex( item => item === from);
+		let toIndex = inputArray.findIndex( item => item === to);
+
+		// check is "fromIndex"" comes before "toIndex", if not, then swap them
+		if(fromIndex > toIndex) [fromIndex, toIndex] = [toIndex, fromIndex];
+
+		inputArray.slice(fromIndex, toIndex).forEach(item => item.checked = true);
+	}
+
+
 </script>
 </body>
 </html>
