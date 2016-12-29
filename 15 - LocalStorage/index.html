@@ -60,7 +60,19 @@
     
   }
 
+	function toggleDone(event){
+		if(!event.target.matches("input")) return;
+
+		const index = event.target.dataset.index;
+
+		items[index].done = !items[index].done;
+
+		localStorage.setItem("items", JSON.stringify(items));
+	}
+
+
 	addItems.addEventListener("submit", addItem);
+	itemsList.addEventListener("click", toggleDone);
 
 	populateList(items, itemsList);
 
