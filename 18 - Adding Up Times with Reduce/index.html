@@ -185,13 +185,10 @@
 
 	const videos = document.querySelectorAll("[data-time]");
 
-	let seconds = Array.from(videos)
-					.map(video => video.dataset.time)
-					.map(time => {
-						const [mins, secs] = time.split(":").map(parseFloat);
-						return (mins*60) + secs;
-					})
-					.reduce((total, vidTime) => total + vidTime );
+	let seconds = Array.from(videos).reduce((total, video) => {
+						const [mins, secs] = video.dataset.time.split(":").map(parseFloat);
+						return total + (mins*60) + secs;
+					},0);
 
 	let secondsLeft = seconds;
 
