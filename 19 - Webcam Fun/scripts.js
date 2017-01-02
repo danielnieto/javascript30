@@ -13,4 +13,15 @@ function getVideo(){
         }).catch(error => console.log(error));
 }
 
+function paintToCanvas(){
+    const {videoWidth: width, videoHeight: height} = video;
+    canvas.width = width;
+    canvas.height = height;
+
+    return setInterval(()=>{
+        ctx.drawImage(video, 0,0, width, height);
+    }, 16);
+
+}
+
 getVideo();
