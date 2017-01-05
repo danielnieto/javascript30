@@ -29,12 +29,12 @@
     </div>
 
 <script>
-  const msg = new SpeechSynthesisUtterance();
-  let voices = [];
-  const voicesDropdown = document.querySelector('[name="voice"]');
-  const options = document.querySelectorAll('[type="range"], [name="text"]');
-  const speakButton = document.querySelector('#speak');
-  const stopButton = document.querySelector('#stop');
+	const msg = new SpeechSynthesisUtterance();
+	let voices = [];
+	const voicesDropdown = document.querySelector('[name="voice"]');
+	const options = document.querySelectorAll('[type="range"], [name="text"]');
+	const speakButton = document.querySelector('#speak');
+	const stopButton = document.querySelector('#stop');
 
 	msg.text = document.querySelector("[name='text']").value;
 
@@ -60,12 +60,19 @@
 		}
 	}
 
+	function setOption() {
+		console.log(this.name, this.value);
+		msg[this.name] = this.value;
+		toggle();
+	}
 
 	voicesDropdown.addEventListener("change", setVoice);
 
 	speechSynthesis.addEventListener("voiceschanged", populateVoices);
+	options.forEach(option => option.addEventListener('change', setOption));
 	speakButton.addEventListener('click', toggle);
 	stopButton.addEventListener('click', () => toggle(false));
+
 
 </script>
 
