@@ -35,6 +35,19 @@
   const options = document.querySelectorAll('[type="range"], [name="text"]');
   const speakButton = document.querySelector('#speak');
   const stopButton = document.querySelector('#stop');
+
+	msg.text = document.querySelector("[name='text']").value;
+
+	function toggle(startOver = true) {
+		speechSynthesis.cancel();
+		if (startOver) {
+			speechSynthesis.speak(msg);
+		}
+	}
+
+	speakButton.addEventListener('click', toggle);
+	stopButton.addEventListener('click', () => toggle(false));
+
 </script>
 
 </body>
