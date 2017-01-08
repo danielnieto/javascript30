@@ -208,6 +208,27 @@
 </style>
 
 <script>
+
+	const triggers = document.querySelectorAll(".cool > li");
+	const background = document.querySelector(".dropdownBackground");
+
+	const nav = document.querySelector(".top");
+
+	function handleEnter(event){
+		this.classList.add("trigger-enter");
+		setTimeout(()=>{
+			this.classList.add("trigger-enter-active");
+		},150)
+	}
+
+	function handleLeave(event){
+		this.classList.remove("trigger-enter", "trigger-enter-active");	
+	}
+
+	triggers.forEach(li => {
+		li.addEventListener("mouseenter", handleEnter);
+		li.addEventListener("mouseleave", handleLeave);
+	});
 </script>
 
 </body>
